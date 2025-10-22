@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc -b --pretty false",
-    "build": "vite build",                 
+    "build": "vite build",                 // tira o tsc do caminho do build
     "lint": "eslint .",
     "predeploy": "pnpm run build",
     "ghpages": "gh-pages -d dist -b gh-pages"

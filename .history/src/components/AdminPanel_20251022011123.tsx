@@ -53,7 +53,7 @@ export default function AdminPanel() {
     });
   }
 
-
+  // ===== Logout
   // ===== Logout
   function handleLogout() {
     try {

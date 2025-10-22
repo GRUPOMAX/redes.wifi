@@ -137,31 +137,31 @@ export default function MapView({
     originalEvent?: MouseEvent;
   };
 
-  // ===== handler padrão de logout (caso não passem onLogout)
-  function defaultLogout() {
-    try {
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("user");
-      sessionStorage.clear();
-    } catch {}
+// ===== handler padrão de logout (caso não passem onLogout)
+function defaultLogout() {
+  try {
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+  } catch {}
 
-    // Vamos sempre mandar para a rota hash "#/login".
-    // Em GitHub Pages, o app roda em /<repo>/, então preservamos esse base.
-    const { origin, pathname, hostname } = window.location;
+  // Vamos sempre mandar para a rota hash "#/login".
+  // Em GitHub Pages, o app roda em /<repo>/, então preservamos esse base.
+  const { origin, pathname, hostname } = window.location;
 
-    const isGhPages = hostname.endsWith("github.io");
+  const isGhPages = hostname.endsWith("github.io");
 
-    // Detecta o "repo base" quando está no GitHub Pages (ex: "/redes.wifi/")
-    const repoBase = isGhPages
-      ? "/" + (pathname.split("/").filter(Boolean)[0] || "") + "/"
-      : "/";
+  // Detecta o "repo base" quando está no GitHub Pages (ex: "/redes.wifi/")
+  const repoBase = isGhPages
+    ? "/" + (pathname.split("/").filter(Boolean)[0] || "") + "/"
+    : "/";
 
-    // Destino final usando HashRouter
-    const target = `${origin}${repoBase}#/login`;
+  // Destino final usando HashRouter
+  const target = `${origin}${repoBase}#/login`;
 
-    // Redireciona sem deixar a URL ambígua
-    window.location.replace(target);
-  }
+  // Redireciona sem deixar a URL ambígua
+  window.location.replace(target);
+}
 
 
   return (

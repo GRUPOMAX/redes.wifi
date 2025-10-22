@@ -53,22 +53,22 @@ export default function AdminPanel() {
     });
   }
 
-
   // ===== Logout
-  function handleLogout() {
-    try {
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("user");
-      sessionStorage.clear();
-    } catch {}
+// ===== Logout
+function handleLogout() {
+  try {
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+  } catch {}
 
-    // Detecta se está em produção no GitHub Pages
-    const baseUrl = window.location.hostname.includes("github.io")
-      ? "https://grupomax.github.io/redes.wifi/#/login"
-      : "/login";
+  // Detecta se está em produção no GitHub Pages
+  const baseUrl = window.location.hostname.includes("github.io")
+    ? "https://grupomax.github.io/redes.wifi/#/login"
+    : "/login";
 
-    window.location.href = baseUrl;
-  }
+  window.location.href = baseUrl;
+}
 
   return (
     <div className="bg-app min-h-dvh text-slate-100 relative">

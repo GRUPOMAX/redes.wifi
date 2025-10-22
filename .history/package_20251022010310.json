@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "typecheck": "tsc -b --pretty false",
-    "build": "vite build",                 
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "predeploy": "pnpm run build",
     "ghpages": "gh-pages -d dist -b gh-pages"
