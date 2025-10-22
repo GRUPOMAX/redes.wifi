@@ -1,13 +1,71 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/redes.wifi/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wifi-map</title>
-    <script type="module" crossorigin src="/redes.wifi/assets/index-CpfKpPkC.js"></script>
-    <link rel="stylesheet" crossorigin href="/redes.wifi/assets/index-B1xmfRLE.css">
-  </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Título e descrição -->
+    <title>Redes Wi-Fi</title>
+    <meta name="description" content="Mapa e painel interativo de redes Wi-Fi." />
+
+    <!-- Tema e cores -->
+    <meta name="theme-color" content="#0EA5E9" />
+    <meta name="background-color" content="#0B1020" />
+
+    <!-- Favicon padrão -->
+    <link rel="icon" href="/redes.wifi/icons/icon-192.png" sizes="192x192" type="image/png" />
+    <link rel="apple-touch-icon" href="/redes.wifi/icons/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- iOS PWA meta -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Redes Wi-Fi" />
+
+    <!-- Open Graph / redes sociais -->
+    <meta property="og:title" content="Redes Wi-Fi" />
+    <meta property="og:description" content="Mapa e painel de redes Wi-Fi." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/redes.wifi/icons/icon-512.png" />
+    <meta property="og:url" content="https://grupomax.github.io/redes.wifi/" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Redes Wi-Fi" />
+    <meta name="twitter:description" content="Mapa e painel interativo de redes Wi-Fi." />
+    <meta name="twitter:image" content="/redes.wifi/icons/icon-512.png" />
+
+    <!-- Fallback para navegadores antigos -->
+    <link rel="shortcut icon" href="/redes.wifi/icons/icon-192.png" type="image/png" />
+
+    <!-- Fonte opcional (pode remover se não quiser) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos básicos para fundo e transição -->
+    <style>
+      body {
+        margin: 0;
+        background: #0b1020;
+        color: white;
+        font-family: 'Inter', sans-serif;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #root {
+        width: 100%;
+      }
+    </style>
+    <script type="module" crossorigin src="/redes.wifi/assets/index-DpVna4kQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/redes.wifi/assets/index-CHG99x2r.css">
+  <link rel="manifest" href="/redes.wifi/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/redes.wifi/registerSW.js"></script></head>
+
   <body>
     <div id="root"></div>
   </body>
