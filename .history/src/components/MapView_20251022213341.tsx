@@ -200,25 +200,30 @@ export default function MapView({
   return (
     <div className={className} style={{ width: '100%', position: 'relative' }}>
       {/* Botão de Logout sobre o mapa */}
-      <button
-        type="button"
-        aria-label="Sair"
-        title="Sair"
-        onClick={() => (onLogout ? onLogout() : defaultLogout())}
-        className="
-          group absolute z-[5000] inline-flex items-center gap-2 rounded-xl
-          bg-white/90 px-3 py-2 text-sm font-medium text-gray-800 shadow-lg backdrop-blur
-          hover:bg-white transition-all
-
-          right-4               /* alinhado à direita */
-          top-auto              /* remove topo no mobile */
-          bottom-[110px]        /* MOBILE: fica acima do float */
-          md:bottom-3           /* DESKTOP: desce pro cantinho */
-        "
-      >
-        <LogOut size={16} className="opacity-80 group-hover:opacity-100" />
-        <span>Sair</span>
-      </button>
+<button
+  type="button"
+  aria-label="Sair"
+  title="Sair"
+  onClick={() => (onLogout ? onLogout() : defaultLogout())}
+  className={`
+    group absolute z-[5000] inline-flex items-center gap-2 rounded-xl
+    bg-white/90 px-3 py-2 text-sm font-medium text-gray-800 shadow-lg backdrop-blur
+    hover:bg-white transition-all
+    right-3 top-3              /* posição padrão desktop */
+    md:bottom-3 md:top-auto   /* desktop → embaixo */
+  `}
+  style={{
+    // 👇 força posição especial para mobile
+    // (fica um pouco acima do float card)
+    '@media (max-width: 768px)': {
+      top: 'auto',
+      bottom: '100px', // ou ajuste conforme altura do float
+    },
+  }}
+>
+  <LogOut size={16} className="opacity-80 group-hover:opacity-100" />
+  <span>Sair</span>
+</button>
 
 
       <ClusterListModal

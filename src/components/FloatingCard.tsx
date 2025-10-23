@@ -32,10 +32,10 @@ export default function FloatingCard({
     return (
       <div
         className="fixed z-[1000] right-4 bottom-4 md:right-6 md:top-6 md:bottom-auto
-                   pointer-events-auto max-w-[520px] rounded-2xl border border-white/10
-                   bg-[color:var(--card)]/90 backdrop-blur-xl p-3 md:p-4 shadow-2xl"
+                  pointer-events-auto max-w-[520px] rounded-2xl border border-white/20
+                  bg-zinc-900/85 text-white backdrop-blur-xl p-3 md:p-4 shadow-2xl"
       >
-        <div className="text-sm opacity-80">
+        <div className="text-sm text-white/90">
           Nenhum Wi-Fi em até <strong>{THRESHOLD_M} m</strong>.
         </div>
       </div>
@@ -46,11 +46,11 @@ export default function FloatingCard({
   return (
     <div
       className="fixed z-[1000] inset-x-3 bottom-3 md:inset-x-auto md:right-6 md:top-6 md:bottom-auto
-                 pointer-events-auto max-w-[520px]"
+                pointer-events-auto max-w-[520px]"
     >
       <div
-        className="rounded-2xl border border-white/10 bg-[color:var(--card)]/90 backdrop-blur-xl
-                   shadow-2xl overflow-hidden"
+        className="rounded-2xl border border-white/20 bg-zinc-900/85 text-white backdrop-blur-xl
+                  shadow-2xl overflow-hidden"
       >
         {/* Cabeçalho (clique para abrir/fechar no mobile) */}
         <button
@@ -71,16 +71,16 @@ export default function FloatingCard({
               )}
             </span>
             <div className="text-left">
-              <div className="text-[11px] uppercase opacity-70 leading-none">
+              <div className="text-[11px] uppercase text-white/70 leading-none">
                 Wi-Fi mais próximo
               </div>
-              <div className="text-sm font-semibold truncate max-w-[58vw] md:max-w-none">
+              <div className="text-sm font-semibold truncate max-w-[58vw] md:max-w-none text-white">
                 {nearest['NOME-WIFI']}
               </div>
             </div>
           </div>
 
-          <div className="text-sm opacity-80 shrink-0">{Math.round(distanceM)} m</div>
+          <div className="text-sm text-white/80 shrink-0">{Math.round(distanceM)} m</div>
         </button>
 
         {/* Corpo: no desktop sempre visível; no mobile só quando open=true */}
@@ -88,12 +88,12 @@ export default function FloatingCard({
           <div className="px-4 pb-4 grid gap-2">
             {nearest['SENHA-WIFI-2G'] && (
               <div className="flex items-center gap-2">
-                <span className="text-sm shrink-0 w-10 opacity-70">2G</span>
-                <code className="flex-1 text-sm bg-black/30 rounded px-2 py-1 border border-white/10 overflow-x-auto">
+                <span className="text-sm shrink-0 w-10 text-white/70">2G</span>
+                <code className="flex-1 text-sm bg-zinc-800/80 rounded px-2 py-1 border border-white/10 text-white overflow-x-auto">
                   {nearest['SENHA-WIFI-2G']}
                 </code>
                 <button
-                  className="px-2 py-1 rounded border border-white/15 hover:bg-white/10"
+                  className="px-2 py-1 rounded bg-emerald-600/80 hover:bg-emerald-500 transition text-white"
                   onClick={() => copyText(nearest['SENHA-WIFI-2G']!)}
                 >
                   Copiar
@@ -102,12 +102,12 @@ export default function FloatingCard({
             )}
             {nearest['SENHA-WIFI-5G'] && (
               <div className="flex items-center gap-2">
-                <span className="text-sm shrink-0 w-10 opacity-70">5G</span>
-                <code className="flex-1 text-sm bg-black/30 rounded px-2 py-1 border border-white/10 overflow-x-auto">
+                <span className="text-sm shrink-0 w-10 text-white/70">5G</span>
+                <code className="flex-1 text-sm bg-zinc-800/80 rounded px-2 py-1 border border-white/10 text-white overflow-x-auto">
                   {nearest['SENHA-WIFI-5G']}
                 </code>
                 <button
-                  className="px-2 py-1 rounded border border-white/15 hover:bg-white/10"
+                  className="px-2 py-1 rounded bg-emerald-600/80 hover:bg-emerald-500 transition text-white"
                   onClick={() => copyText(nearest['SENHA-WIFI-5G']!)}
                 >
                   Copiar

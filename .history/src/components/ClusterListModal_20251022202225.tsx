@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import type { WifiNetwork } from '../types';
-import { getWifiId } from '../utils/getWifiId';
 
 type Props = {
   open: boolean;
@@ -47,14 +46,17 @@ export default function ClusterListModal({ open, items, onClose, onPick }: Props
 
       {/* painel */}
       <div className="absolute right-0 top-0 h-full w-full max-w-md bg-zinc-900 text-zinc-100 shadow-2xl flex flex-col overscroll-contain">
+        {/* SAFE AREA TOP: empurra o conteúdo pra baixo do notch/status bar */}
         <div
           aria-hidden
           className="shrink-0"
           style={{
+            // 10px base + safe-area do dispositivo (iOS/Android gestual)
             height: 'calc(env(safe-area-inset-top, 0px) + 10px)',
           }}
         />
 
+        {/* header fixo abaixo da safe area */}
         <header
           className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 border-b border-white/10
                      bg-zinc-900/95 backdrop-blur supports-[backdrop-filter]:bg-zinc-900/80"
@@ -83,6 +85,13 @@ export default function ClusterListModal({ open, items, onClose, onPick }: Props
             >
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-medium text-sm truncate">{w['NOME-WIFI']}</h3>
+                <button
+                  className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20"
+                  onClick={() => onPick?.(w)}
+                  title="Mostrar no mapa"
+                >
+                  Ver no mapa
+                </button>
               </div>
 
               <div className="mt-2 grid grid-cols-1 gap-2">

@@ -83,6 +83,16 @@ export default function ClusterListModal({ open, items, onClose, onPick }: Props
             >
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-medium text-sm truncate">{w['NOME-WIFI']}</h3>
+                <button
+                  className="text-xs px-2 py-1 rounded-lg bg-white/10 hover:bg-white/20"
+                  onClick={() => {
+                    // fecha o modal e dispara o onPick com o MESMO objeto
+                    onPick?.(w);
+                  }}
+                  title="Mostrar no mapa"
+                >
+                  Ver no mapa
+                </button>
               </div>
 
               <div className="mt-2 grid grid-cols-1 gap-2">

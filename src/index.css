@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 /* ===== UI Base - Admin Wi-Fi ===== */
-:root{
-  --accent: #22c55e;             /* verde */
+:root {
+  --accent: #22c55e; /* verde */
   --accent-ink: #0b1220;
   --card: color-mix(in oklab, white 7%, transparent);
   --stroke: color-mix(in oklab, white 14%, transparent);
@@ -10,10 +10,8 @@
 }
 
 .bg-app {
-  background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(34,197,94,.18), transparent 60%),
-    radial-gradient(900px 500px at -10% 110%, rgba(59,130,246,.18), transparent 55%),
-    #0b1220;
+  background: radial-gradient(1200px 600px at 80% -10%, rgba(34, 197, 94, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(59, 130, 246, 0.18), transparent 55%), #0b1220;
 }
 
 /* Cards “glass” */
@@ -21,16 +19,14 @@
   background: var(--card);
   border: 1px solid var(--stroke);
   border-radius: 16px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.03) inset,
-    0 20px 70px rgba(0,0,0,.45);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset, 0 20px 70px rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(6px);
 }
 
 /* Tipografia curtinha */
 .h2 {
   font-weight: 700;
-  letter-spacing: -.01em;
+  letter-spacing: -0.01em;
 }
 .h3 {
   font-weight: 600;
@@ -41,12 +37,15 @@
   width: 100%;
   border-radius: 12px;
   border: 1px solid var(--stroke);
-  background: rgba(255,255,255,.05);
-  padding: .70rem .9rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.7rem 0.9rem;
   outline: none;
-  transition: box-shadow .15s ease, border-color .15s ease, transform .05s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
 }
-.input::placeholder { color: #94a3b8; opacity: .75; }
+.input::placeholder {
+  color: #94a3b8;
+  opacity: 0.75;
+}
 .input:focus {
   border-color: color-mix(in oklab, var(--accent) 70%, white 0%);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 22%, transparent);
@@ -58,45 +57,65 @@
   user-select: none;
   border: 1px solid var(--stroke);
   border-radius: 12px;
-  padding: .6rem .9rem;
+  padding: 0.6rem 0.9rem;
   font-weight: 600;
-  font-size: .925rem;
-  background: rgba(255,255,255,.06);
-  transition: transform .08s ease, filter .2s ease, background .2s ease;
+  font-size: 0.925rem;
+  background: rgba(255, 255, 255, 0.06);
+  transition: transform 0.08s ease, filter 0.2s ease, background 0.2s ease;
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); }
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
 
-.btn-accent{
+.btn-accent {
   border: 0;
   color: var(--accent-ink);
-  background:
-    radial-gradient(200% 120% at 20% -20%, rgba(255,255,255,.30), transparent 36%),
+  background: radial-gradient(200% 120% at 20% -20%, rgba(255, 255, 255, 0.3), transparent 36%),
     linear-gradient(135deg, color-mix(in oklab, var(--accent) 92%, #fff 0%), #16a34a);
-  box-shadow: 0 10px 30px rgba(34,197,94,.35);
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.35);
 }
-.btn-accent:hover{ filter: saturate(1.1) brightness(1.02); }
+.btn-accent:hover {
+  filter: saturate(1.1) brightness(1.02);
+}
 
-.btn-ghost{ background: rgba(255,255,255,.06); }
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.06);
+}
 
 /* Etiquetas e ajuda */
 .label {
-  display:block;
-  font-size:.85rem;
+  display: block;
+  font-size: 0.85rem;
   color: #cbd5e1;
-  margin-bottom:.35rem;
+  margin-bottom: 0.35rem;
 }
-.helper { font-size:.8rem; color:#9aa9c1; }
+.helper {
+  font-size: 0.8rem;
+  color: #9aa9c1;
+}
 
 /* Divisor sutil */
 .hr {
-  height:1px; background: var(--stroke); opacity:.6;
+  height: 1px;
+  background: var(--stroke);
+  opacity: 0.6;
 }
 
 /* Área scroll suave pra listas */
-.scrolly { scrollbar-gutter: stable both-edges; }
-.scrolly::-webkit-scrollbar { height:10px; width:10px; }
-.scrolly::-webkit-scrollbar-thumb { background: rgba(255,255,255,.14); border-radius: 999px; }
+.scrolly {
+  scrollbar-gutter: stable both-edges;
+}
+.scrolly::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.scrolly::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+}
 
 html,
 body,
@@ -237,41 +256,127 @@ body,
   cursor: not-allowed;
 }
 
-
 /* cluster bubble */
-.cluster-icon .cluster-bubble{
-  display:grid; place-items:center;
-  width:40px; height:40px; border-radius:999px;
-  background: rgba(59,130,246,.2);
-  border:2px solid rgba(59,130,246,.6);
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
+.cluster-icon .cluster-bubble {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 2px solid rgba(59, 130, 246, 0.6);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
 }
-.cluster-icon span{ font-weight:700; }
+.cluster-icon span {
+  font-weight: 700;
+}
 
 /* hover card */
-.cluster-hover-card{
-  background:#111827; color:#e5e7eb; border:1px solid rgba(255,255,255,.1);
-  border-radius:12px; box-shadow:0 16px 50px rgba(0,0,0,.45);
-  overflow:hidden; pointer-events:auto;
+.cluster-hover-card {
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  pointer-events: auto;
 }
-.cluster-hover-card .chc-head{
-  font-weight:600; padding:.5rem .75rem; background:#0b1220; opacity:.95;
-  display:flex; align-items:center; gap:.5rem;
+.cluster-hover-card .chc-head {
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  background: #0b1220;
+  opacity: 0.95;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
-.cluster-hover-card .chc-list{ list-style:none; margin:0; padding:.35rem .5rem; max-height:240px; overflow:auto; }
-.cluster-hover-card .chc-item{
-  display:flex; align-items:center; gap:.5rem; padding:.35rem .5rem; border-radius:8px; cursor:pointer;
+.cluster-hover-card .chc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.35rem 0.5rem;
+  max-height: 240px;
+  overflow: auto;
 }
-.cluster-hover-card .chc-item:hover{ background:rgba(255,255,255,.06); }
-.cluster-hover-card .chc-dot{ width:8px; height:8px; border-radius:999px; background:#34d399; flex:0 0 auto; }
-.cluster-hover-card .chc-more{ padding:.4rem .75rem; font-size:.85rem; opacity:.7; }
+.cluster-hover-card .chc-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.cluster-hover-card .chc-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+.cluster-hover-card .chc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #34d399;
+  flex: 0 0 auto;
+}
+.cluster-hover-card .chc-more {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
 
 /* seus cards de popup já existentes */
-.wifi-card{ display:grid; gap:.5rem; }
-.wifi-card__title{ display:flex; align-items:center; gap:.5rem; font-weight:700; }
-.wifi-card__dot{ width:10px; height:10px; border-radius:999px; background:#60a5fa; }
-.wifi-card__coords{ font-size:.8rem; opacity:.7; }
-.wifi-card__row{ display:flex; justify-content:space-between; align-items:center; gap:.75rem; }
-.wifi-card__value{ display:flex; align-items:center; gap:.5rem; }
-.wifi-card__btn{ padding:.35rem .6rem; border-radius:8px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); cursor:pointer; }
+.wifi-card {
+  display: grid;
+  gap: 0.5rem;
+}
+.wifi-card__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+.wifi-card__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #60a5fa;
+}
+.wifi-card__coords {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.wifi-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+.wifi-card__value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.wifi-card__btn {
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+/* ========= Cluster count: número escuro ========= */
+.leaflet-marker-icon.cluster-icon .cluster-bubble span {
+  color: var(--accent-ink, #0b1220) !important; /* forçam texto escuro */
+  font-weight: 800;
+  text-shadow: none;
+  opacity: 0.95;
+}
+
+/* (opcional) garanta layout bonitinho do teu bubble */
+.leaflet-marker-icon.cluster-icon .cluster-bubble {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  backdrop-filter: blur(4px);
+  /* se quiser reforçar contraste do fundo: */
+  /* background: rgba(255,255,255,0.9); */
+}

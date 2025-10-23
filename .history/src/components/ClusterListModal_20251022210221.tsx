@@ -83,6 +83,7 @@ export default function ClusterListModal({ open, items, onClose, onPick }: Props
             >
               <div className="flex items-center justify-between gap-3">
                 <h3 className="font-medium text-sm truncate">{w['NOME-WIFI']}</h3>
+
               </div>
 
               <div className="mt-2 grid grid-cols-1 gap-2">
