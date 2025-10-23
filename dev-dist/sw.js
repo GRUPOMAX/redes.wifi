@@ -82,7 +82,7 @@ define(['./workbox-77a2df0e'], (function (workbox) { 'use strict';
     "revision": "3ca0b8505b4bec776b69afdba2768812"
   }, {
     "url": "/redes.wifi/index.html",
-    "revision": "0.mlk6rmtfe78"
+    "revision": "0.2rhd73mjalg"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("/redes.wifi/index.html"), {

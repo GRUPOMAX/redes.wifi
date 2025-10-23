@@ -13,7 +13,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 import type { WifiNetwork } from '../types';
-import { LogOut } from 'lucide-react'; // ícone do botão
+import { LogOut, LayoutDashboard } from 'lucide-react'; // ⬅️ add ícone Admin
 
 // Corrige ícone padrão do Leaflet
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
@@ -73,14 +73,14 @@ export default function MapView({
   allWifi = [],
   userCoords,
   onSelectWifi,
-  onLogout, // ⬅️ nova prop
+  onLogout, // ⬅️ prop já existente
   className = '',
   height = '70vh',
 }: {
   allWifi: WifiNetwork[];
   userCoords?: { lat: number; lng: number } | null;
   onSelectWifi?: (w: WifiNetwork) => void;
-  onLogout?: () => void; // ⬅️ nova prop
+  onLogout?: () => void;
   className?: string;
   height?: string | number;
 }) {
@@ -95,6 +95,18 @@ export default function MapView({
   }, [allWifi]);
 
   const initialCenter = userCoords ?? { lat: -15.78, lng: -47.93 };
+
+  // ===== admin? (pega do localStorage.user)
+  const isAdmin = useMemo(() => {
+    try {
+      const raw = localStorage.getItem('user');
+      if (!raw) return false;
+      const u = JSON.parse(raw);
+      return !!u?.is_admin;
+    } catch {
+      return false;
+    }
+  }, []);
 
   // ===== modal de cluster
   const [modalOpen, setModalOpen] = useState(false);
@@ -117,32 +129,23 @@ export default function MapView({
     const id = String(item.Id ?? `${item.LATITUDE},${item.LONGITUDE}`);
     const marker = markerByIdRef.current.get(id);
 
-    // fecha modal sempre (evita “nada acontece” por overlay)
     setModalOpen(false);
 
     if (!marker || !map) return;
 
-    // importante: Leaflet precisa recalcular o tamanho após overlays
-    // (em especial no mobile, para não “comer” cliques)
     setTimeout(() => map.invalidateSize(), 0);
 
     const latlng = marker.getLatLng();
 
     const focusOnMarker = () => {
-      // evita cair abaixo de um zoom razoável; 19 é o alvo, mas se já está maior, mantém
       const targetZoom = Math.max(map.getZoom(), 19);
       map.flyTo(latlng, targetZoom, { animate: true, duration: 0.6 });
-      // abre o popup quando o movimento terminar (mais confiável que usar timeout fixo)
       map.once('moveend', () => (marker as any).openPopup?.());
     };
 
-    // Se o marker estiver dentro de um cluster fechado, abre o caminho até ele
     const zts = (clusterGroup as any)?.zoomToShowLayer;
     if (typeof zts === 'function') {
-      zts(marker as any, () => {
-        // give it a tick para o layer ser realmente adicionado no mapa
-        setTimeout(focusOnMarker, 30);
-      });
+      zts(marker as any, () => setTimeout(focusOnMarker, 30));
     } else {
       focusOnMarker();
     }
@@ -153,7 +156,6 @@ export default function MapView({
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    // quando modal abre/fecha, recalcula o mapa (só um micro-delay)
     const t = setTimeout(() => map.invalidateSize(), 0);
     return () => clearTimeout(t);
   }, [modalOpen]);
@@ -173,6 +175,20 @@ export default function MapView({
     originalEvent?: MouseEvent;
   };
 
+  // ===== util para descobrir base do GitHub Pages
+  function computeRepoBase() {
+    const { pathname, hostname } = window.location;
+    const isGhPages = hostname.endsWith('github.io');
+    return isGhPages ? '/' + (pathname.split('/').filter(Boolean)[0] || '') + '/' : '/';
+  }
+
+  // ===== ir para Admin (HashRouter), respeitando base do GH Pages
+  function goToAdmin() {
+    const base = computeRepoBase();
+    const target = `${window.location.origin}${base}#/admin`;
+    window.location.assign(target);
+  }
+
   // ===== handler padrão de logout (caso não passem onLogout)
   function defaultLogout() {
     try {
@@ -180,46 +196,54 @@ export default function MapView({
       localStorage.removeItem('user');
       sessionStorage.clear();
     } catch {}
-
-    // Vamos sempre mandar para a rota hash "#/login".
-    // Em GitHub Pages, o app roda em /<repo>/, então preservamos esse base.
-    const { origin, pathname, hostname } = window.location;
-
-    const isGhPages = hostname.endsWith('github.io');
-
-    // Detecta o "repo base" quando está no GitHub Pages (ex: "/redes.wifi/")
-    const repoBase = isGhPages ? '/' + (pathname.split('/').filter(Boolean)[0] || '') + '/' : '/';
-
-    // Destino final usando HashRouter
-    const target = `${origin}${repoBase}#/login`;
-
-    // Redireciona sem deixar a URL ambígua
+    const base = computeRepoBase();
+    const target = `${window.location.origin}${base}#/login`;
     window.location.replace(target);
   }
 
   return (
     <div className={className} style={{ width: '100%', position: 'relative' }}>
-      {/* Botão de Logout sobre o mapa */}
-      <button
-        type="button"
-        aria-label="Sair"
-        title="Sair"
-        onClick={() => (onLogout ? onLogout() : defaultLogout())}
+      {/* Barra de ações (fica no mesmo lugar do antigo botão) */}
+      <div
         className="
-          group absolute z-[5000] inline-flex items-center gap-2 rounded-xl
-          bg-white/90 px-3 py-2 text-sm font-medium text-gray-800 shadow-lg backdrop-blur
-          hover:bg-white transition-all
-
-          right-4               /* alinhado à direita */
-          top-auto              /* remove topo no mobile */
-          bottom-[110px]        /* MOBILE: fica acima do float */
-          md:bottom-3           /* DESKTOP: desce pro cantinho */
+          absolute z-[5000] flex items-center gap-2
+          right-4
+          top-auto
+          bottom-[110px] md:bottom-3
         "
       >
-        <LogOut size={16} className="opacity-80 group-hover:opacity-100" />
-        <span>Sair</span>
-      </button>
+        {isAdmin && (
+          <button
+            type="button"
+            aria-label="Área Admin"
+            title="Área Admin"
+            onClick={goToAdmin}
+            className="
+              group inline-flex items-center gap-2 rounded-xl
+              bg-white/90 px-3 py-2 text-sm font-medium text-gray-800 shadow-lg backdrop-blur
+              hover:bg-white transition-all
+            "
+          >
+            <LayoutDashboard size={16} className="opacity-80 group-hover:opacity-100" />
+            <span>Admin</span>
+          </button>
+        )}
 
+        <button
+          type="button"
+          aria-label="Sair"
+          title="Sair"
+          onClick={() => (onLogout ? onLogout() : defaultLogout())}
+          className="
+            group inline-flex items-center gap-2 rounded-xl
+            bg-white/90 px-3 py-2 text-sm font-medium text-gray-800 shadow-lg backdrop-blur
+            hover:bg-white transition-all
+          "
+        >
+          <LogOut size={16} className="opacity-80 group-hover:opacity-100" />
+          <span>Sair</span>
+        </button>
+      </div>
 
       <ClusterListModal
         open={modalOpen}
@@ -238,10 +262,10 @@ export default function MapView({
           borderRadius: 16,
           boxShadow: '0 20px 60px rgba(0,0,0,.25)',
         }}
-        scrollWheelZoom={true}
-        doubleClickZoom={true}
-        touchZoom={true}
-        zoomControl={true}
+        scrollWheelZoom
+        doubleClickZoom
+        touchZoom
+        zoomControl
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
@@ -250,7 +274,7 @@ export default function MapView({
 
         <MarkerClusterGroup
           ref={(ref) => (clusterRef.current = ref)}
-          whenCreated={(instance) => (clusterRef.current = instance)} // 👈 pega o L.MarkerClusterGroup real
+          whenCreated={(instance) => (clusterRef.current = instance)}
           chunkedLoading
           showCoverageOnHover={false}
           zoomToBoundsOnClick={false}
@@ -278,7 +302,6 @@ export default function MapView({
               key={raw.Id}
               position={[lat, lng]}
               icon={wifiIcon}
-              // onde você cria os markers, ajuste o ref:
               ref={(ref) => {
                 const id = String(raw.Id ?? `${raw.LATITUDE},${raw.LONGITUDE}`);
                 if (ref) {
@@ -291,7 +314,6 @@ export default function MapView({
               eventHandlers={{ click: () => onSelectWifi?.(raw) }}
               riseOnHover
             >
-              {/* Popup permanece igual */}
               <Popup className="wifi-popup" maxWidth={320} closeButton>
                 <div className="wifi-card">
                   <div className="wifi-card__title">
