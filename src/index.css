@@ -9,6 +9,43 @@
   --muted: color-mix(in oklab, white 55%, transparent);
 }
 
+
+/* ==== Safe Area (iOS notch / home indicator) ==== */
+:root{
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+/* padding geral respeitando a área segura */
+.safe-inset {
+  padding-left:  max(0px, var(--sal));
+  padding-right: max(0px, var(--sar));
+  padding-bottom: max(0px, var(--sab));
+}
+
+/* topbar: dá um respiro extra no topo */
+.header-safe {
+  padding-top: calc(var(--sat) + 0.25rem);
+}
+
+/* main: garante área de scroll que não cola no “queixo” */
+.main-safe {
+  padding-bottom: calc(var(--sab) + 1rem);
+}
+
+/* para botões/flutuantes fixos no rodapé */
+.fab-safe {
+  bottom: calc(1rem + var(--sab));
+}
+
+/* se tiver close buttons grudados lá em cima */
+.top-safe {
+  top: calc(0px + var(--sat));
+}
+
+
 .bg-app {
   background: radial-gradient(1200px 600px at 80% -10%, rgba(34, 197, 94, 0.18), transparent 60%),
     radial-gradient(900px 500px at -10% 110%, rgba(59, 130, 246, 0.18), transparent 55%), #0b1220;

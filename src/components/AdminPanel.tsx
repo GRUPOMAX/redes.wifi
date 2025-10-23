@@ -76,18 +76,21 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="bg-app min-h-dvh text-slate-100 relative">
+    <div className="bg-app min-h-dvh text-slate-100 relative safe-inset">
       {/* Topbar */}
       <header className="sticky top-0 z-20">
         <div
-          className="mx-auto w-full max-w-6xl px-3 md:px-4 py-3 md:py-4
-                      flex items-center gap-3 rounded-b-2xl
-                      bg-white/[0.03] backdrop-blur supports-[backdrop-filter]:bg-white/[0.03]
-                      border-b border-white/10"
+          className="
+            header-safe                      /* 👈 respeita safe-area top */
+            mx-auto w-full max-w-6xl px-3 md:px-4 py-3 md:py-4
+            flex items-center gap-3 rounded-b-2xl
+            bg-white/[0.03] backdrop-blur supports-[backdrop-filter]:bg-white/[0.03]
+            border-b border-white/10
+          "
         >
           <div
             className="size-8 rounded-lg bg-emerald-400/15 border border-emerald-300/20
-                        flex items-center justify-center shrink-0"
+                       flex items-center justify-center shrink-0"
           >
             <span className="text-emerald-300 font-black">W</span>
           </div>
@@ -98,7 +101,7 @@ export default function AdminPanel() {
 
           <div className="flex-1" />
 
-          {/* Botão group: primário + ghost */}
+          {/* Botões */}
           <div className="flex items-center gap-2">
             <button
               type="button"
@@ -124,7 +127,7 @@ export default function AdminPanel() {
       </header>
 
       {/* Conteúdo */}
-      <main className="mx-auto w-full max-w-6xl px-3 md:px-4 py-4 md:py-6 space-y-4 md:space-y-6">
+      <main className="main-safe mx-auto w-full max-w-6xl px-3 md:px-4 py-4 md:py-6 space-y-4 md:space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
           {/* Formulário */}
           <section id="wifi-form" className="glass p-4 md:p-5">
@@ -145,7 +148,14 @@ export default function AdminPanel() {
               <span className="helper">{items.length} itens</span>
             </div>
 
-            <div className="scrolly overflow-auto max-h-[45dvh] md:max-h-[520px]">
+            {/* evita que o scroll esconda itens atrás do home indicator */}
+            <div
+              className="scrolly overflow-auto md:max-h-[520px]"
+              style={{
+                maxHeight: 'calc(45dvh - 0px)',          // desktop fallback
+                paddingBottom: 'calc(var(--sab) + 0.5rem)', // 👈 safe area bottom
+              }}
+            >
               {isLoading ? (
                 <div className="helper">Carregando…</div>
               ) : isError ? (
@@ -158,6 +168,7 @@ export default function AdminPanel() {
         </div>
       </main>
 
+      {/* Se tiver botões/flutuantes fixos depois, usar .fab-safe / .top-safe */}
       <MapModal open={mapOpen} title={mapTitle} center={center} onClose={() => setMapOpen(false)} />
     </div>
   );
